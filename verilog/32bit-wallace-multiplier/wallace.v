@@ -86,11 +86,9 @@ module wallace (
 
 	FA l81 (u_l71[63:0], v_l71[63:0], v_l62[63:0], u_l81[63:0], v_l81[63:0]);
 
-	// rdcla l91 ()
+	// The following is for level 9 of wallace tree
 	wire c;
 	rdcla l91 (out[31:0], c, u_l81[31:0], v_l81[31:0], 1'b0);
 	rdcla l92 (out[63:32], , u_l81[63:32], v_l81[63:32], c);
-
-	assign out = u_l81 + v_l81;
 
 endmodule
