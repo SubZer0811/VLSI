@@ -10,7 +10,7 @@ wallace test (a, b, out);
 initial
 begin
 	a = 32'd123;
-	b = 32'd3;
+	b = 32'd11;
 	#10$display("  a=%d\n  b=%d\nout=%d", a, b, out);
 end
 
