@@ -9,14 +9,9 @@ wallace test (a, b, out);
 
 initial
 begin
-	a = 32'b101;
-	b = 32'b111;
+	a = 32'd123;
+	b = 32'd3;
+	#10$display("  a=%d\n  b=%d\nout=%d", a, b, out);
 end
-always @(*)
-begin
-	// $monitor("a=%b\nb=%b", a, b);
-end
-	
-
 
 endmodule

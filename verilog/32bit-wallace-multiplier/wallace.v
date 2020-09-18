@@ -1,5 +1,6 @@
 `include "partial_products.v"
 `include "carry_save_adder.v"
+`include "../32bit-recursive-doubling-CLA/32rdcla.v"
 
 module wallace (
 	input [31:0] a,
@@ -74,13 +75,22 @@ module wallace (
 
 	FA l61 (u_l51[63:0], v_l51[63:0], u_l52[63:0], u_l61[63:0], v_l61[63:0]);
 	FA l62 (v_l52[63:0], u_l35[63:0], v_l35[63:0], u_l62[63:0], v_l62[63:0]);
-	
-	initial
-	begin
-		// #5 $display("u=%b\nv=%b\n", u_l11, v_l11);
-		// #5 $display("u=%b\nv=%b\n", u_l12, v_l12);
-		// for(i=0; i<4; i=i+1)
-		// 	$display("  %b", p_prods[i]);
-	end
+
+	// The following is for level 7 of wallace tree
+	wire [63:0] u_l71, v_l71;
+
+	FA l71 (u_l61[63:0], v_l61[63:0], u_l62[63:0], u_l71[63:0], v_l71[63:0]);
+
+	// The following is for level 8 of wallace tree
+	wire [63:0] u_l81, v_l81;
+
+	FA l81 (u_l71[63:0], v_l71[63:0], v_l62[63:0], u_l81[63:0], v_l81[63:0]);
+
+	// rdcla l91 ()
+	wire c;
+	rdcla l91 (out[31:0], c, u_l81[31:0], v_l81[31:0], 1'b0);
+	rdcla l92 (out[63:32], , u_l81[63:32], v_l81[63:32], c);
+
+	assign out = u_l81 + v_l81;
 
 endmodule
